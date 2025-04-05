@@ -5,6 +5,8 @@ import {WagmiProvider} from "wagmi";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import {config} from "./config.ts";
 import {ConnectKitProvider} from "connectkit";
+import {CssBaseline, ThemeProvider} from "@mui/material";
+import neonGreenDarkTheme from "./theme.ts";
 
 const queryClient = new QueryClient()
 
@@ -12,6 +14,8 @@ function App() {
 
   return (
     <>
+        <ThemeProvider theme={neonGreenDarkTheme} defaultMode={"dark"}>
+            <CssBaseline />
             <WagmiProvider config={config}>
                 <QueryClientProvider client={queryClient}>
                     <ConnectKitProvider>
@@ -22,6 +26,7 @@ function App() {
                     </ConnectKitProvider>
                 </QueryClientProvider>
             </WagmiProvider>
+        </ThemeProvider>
     </>
   )
 }

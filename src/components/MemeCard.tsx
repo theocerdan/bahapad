@@ -41,7 +41,6 @@ const MemeProject = ({ token }: { token: Token }) => {
             {/* Contenu principal */}
             <Box sx={{ width: "100%", display: 'flex', flexDirection: 'column' }}>
                 <Box sx={{
-                    backgroundColor: '#f0f2f5',
                     p: 2,
                     display: { xs: 'none', md: 'block' }
                 }}>
@@ -50,7 +49,7 @@ const MemeProject = ({ token }: { token: Token }) => {
                             {token.name}
                         </Typography>
                         <Chip
-                            label={"$" + token.symbol}
+                            label={"$" + token.symbol.toUpperCase()}
                             variant="outlined"
                             color="primary"
                             sx={{ fontWeight: 'medium' }}
@@ -61,41 +60,65 @@ const MemeProject = ({ token }: { token: Token }) => {
                 <Divider sx={{ display: { xs: 'none', md: 'block' } }} />
 
                 {/* Informations principales */}
-                <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'row' }}>
+                <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 3, p: 3 }}>
                     <CardMedia
                         component="img"
                         image={token.url}
                         sx={{
                             objectFit: 'contain',
-                            width: '250px',
-                            height: '250px'
+                            width: { xs: '100%', md: '250px' },
+                            height: '250px',
+                            borderRadius: 2
                         }}
                     />
-                    <Box sx={{ display: 'flex', flexDirection: 'column', justifyCenter: 'center', gap: 1 }}>
-                        <Typography variant="body2" color="text.secondary">
-                            Description: {token.description}
-                        </Typography>
+                    <Box sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        gap: 2,
+                        flex: 1
+                    }}>
 
-                        <Typography variant="body2" color="text.secondary">
-                            Launch Date: {formatTimestamp(token.launchDate)}
-                        </Typography>
+                        <Box sx={{ display: 'grid', gridTemplateColumns: '120px 1fr', gap: 1 }}>
+                            <Typography variant="body2" color="text.secondary" fontWeight="medium">
+                                Description:
+                            </Typography>
+                            <Typography variant="body2">
+                                {token.description}
+                            </Typography>
 
-                        <Typography variant="body2" color="text.secondary">
-                            Total Supply: {token.supply} ${token.symbol}
-                        </Typography>
+                            <Typography variant="body2" color="text.secondary" fontWeight="medium">
+                                Launch Date:
+                            </Typography>
+                            <Typography variant="body2">
+                                {formatTimestamp(token.launchDate)}
+                            </Typography>
 
-                        <Typography variant="body2" color="text.secondary">
-                            Address: {token.address}
-                        </Typography>
+                            <Typography variant="body2" color="text.secondary" fontWeight="medium">
+                                Total Supply:
+                            </Typography>
+                            <Typography variant="body2">
+                                {token.supply} ${token.symbol.toUpperCase()}
+                            </Typography>
 
-                        <Typography variant="body2" color="text.secondary">
-                            Owner: {token.owner}
-                        </Typography>
+                            <Typography variant="body2" color="text.secondary" fontWeight="medium">
+                                Address:
+                            </Typography>
+                            <Typography variant="body2" sx={{ wordBreak: 'break-all' }}>
+                                {token.address}
+                            </Typography>
+
+                            <Typography variant="body2" color="text.secondary" fontWeight="medium">
+                                Owner:
+                            </Typography>
+                            <Typography variant="body2" sx={{ wordBreak: 'break-all' }}>
+                                {token.owner}
+                            </Typography>
+                        </Box>
                     </Box>
                 </CardContent>
-
                 {/* Bouton d'achat */}
-                <CardActions sx={{ p: 2, backgroundColor: '#f0f2f5', mt: 'auto' }}>
+                <CardActions sx={{ p: 2, mt: 'auto' }}>
                     <Button
                         disabled={true}
                         variant="contained"
