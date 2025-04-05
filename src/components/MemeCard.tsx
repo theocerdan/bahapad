@@ -1,4 +1,3 @@
-// MemeProjectHorizontalCard.jsx
 import {
     Card,
     CardMedia,
@@ -82,7 +81,7 @@ const MemeProject = ({ token }: { token: Token }) => {
                         </Typography>
 
                         <Typography variant="body2" color="text.secondary">
-                            Total Supply: {token.supply}
+                            Total Supply: {token.supply} ${token.symbol}
                         </Typography>
 
                         <Typography variant="body2" color="text.secondary">
