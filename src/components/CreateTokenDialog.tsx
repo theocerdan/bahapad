@@ -33,7 +33,6 @@ const useCreateToken = () => {
         if (!isSuccess) return;
         setOpen(false);
         jsConfetti.addConfetti({
-            //frog emoji
             emojis: ['🐸'],
             emojiSize: 100,
             confettiNumber: 30,

@@ -5,11 +5,19 @@ import fetchToken from "../repository/TokenRepository.ts";
 
 const Leaderboard = () => {
 
-    const { data } = useQuery({ queryKey: ["token"], queryFn: fetchToken });
+    const { data } = useQuery({ queryKey: ["token"], queryFn: fetchToken, refetchInterval: 2000 });
+
+    if (data == undefined) {
+        return (
+            <Box sx={{ display: 'flex', width: '100%', flexDirection: 'column', gap: 3, justifyContent: 'center'}}>
+                <h1>Loading...</h1>
+            </Box>
+        );
+    }
 
     return (
         <Box sx={{ display: 'flex', width: '100%', flexDirection: 'column', gap: 3, justifyContent: 'center'}}>
-            {data != undefined && data.map((token) => (
+            {data.map((token) => (
                 <MemeProject key={token.address} token={token} />
             ))}
         </Box>

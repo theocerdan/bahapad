@@ -111,7 +111,7 @@ const MemeProject = ({ token }: { token: Token }) => {
                             borderRadius: 2
                         }}
                     >
-                        Buy on Fastex (SOON)
+                        Buy on SilkSwap (SOON)
                     </Button>
                 </CardActions>
             </Box>

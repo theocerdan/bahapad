@@ -1,4 +1,4 @@
-import { createConfig, http } from "wagmi";
+import {createConfig, http} from "wagmi";
 import { getDefaultConfig } from "connectkit";
 import {getPublicClient} from "@wagmi/core";
 import {horizon} from "../horizon.ts";
