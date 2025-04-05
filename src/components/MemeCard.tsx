@@ -9,14 +9,21 @@ import {
     Box,
     Chip,
     Divider,
-    Grid,
     Link
 } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
-import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import {Token} from "../repository/TokenRepository.ts";
 
+const formatTimestamp = (timestamp: number) => {
+    const date = new Date(timestamp * 1000);
+    return date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+    });
+}
 const MemeProject = ({ token }: { token: Token }) => {
     // Données d'exemple pour le projet meme coin
 
@@ -65,48 +72,27 @@ const MemeProject = ({ token }: { token: Token }) => {
                             height: '250px'
                         }}
                     />
-                    <Grid container spacing={2}>
-                        {/* Informations clés */}
-                        <Grid size={{ xs: 12, md: 7}}>
-                            <Grid container spacing={2}>
-                                <Grid size={{ xs: 6 }}>
-                                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                                        <CalendarTodayIcon sx={{ mr: 1, color: 'text.secondary', fontSize: 20 }} />
-                                        <Typography variant="body2" color="text.secondary">
-                                            Lancé le
-                                        </Typography>
-                                    </Box>
-                                    <Typography variant="body1" sx={{ fontWeight: 'medium' }}>
-                                        {token.launchDate}
-                                    </Typography>
-                                    <Typography variant="body2" color="text.secondary">
-                                        (toto)
-                                    </Typography>
-                                </Grid>
-                                <Grid size={{ xs: 6 }}>
-                                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                                        <LocalOfferIcon sx={{ mr: 1, color: 'text.secondary', fontSize: 20 }} />
-                                        <Typography variant="body2" color="text.secondary">
-                                            Supply totale
-                                        </Typography>
-                                    </Box>
-                                    <Typography variant="body1" sx={{ fontWeight: 'medium' }}>
-                                        {token.supply}
-                                    </Typography>
-                                    <Typography variant="body2" color="text.secondary">
-                                        {token.symbol}
-                                    </Typography>
-                                </Grid>
-                            </Grid>
-                        </Grid>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', justifyCenter: 'center', gap: 1 }}>
+                        <Typography variant="body2" color="text.secondary">
+                            Description: {token.description}
+                        </Typography>
 
-                        {/* Description */}
-                        <Grid size={{ xs: 12, md: 5 }} >
-                            <Typography variant="body2" color="text.secondary">
-                                {token.description}
-                            </Typography>
-                        </Grid>
-                    </Grid>
+                        <Typography variant="body2" color="text.secondary">
+                            Launch Date: {formatTimestamp(token.launchDate)}
+                        </Typography>
+
+                        <Typography variant="body2" color="text.secondary">
+                            Total Supply: {token.supply}
+                        </Typography>
+
+                        <Typography variant="body2" color="text.secondary">
+                            Address: {token.address}
+                        </Typography>
+
+                        <Typography variant="body2" color="text.secondary">
+                            Owner: {token.owner}
+                        </Typography>
+                    </Box>
                 </CardContent>
 
                 {/* Bouton d'achat */}

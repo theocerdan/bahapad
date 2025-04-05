@@ -14,8 +14,10 @@ export type Token = {
 
 const fetchToken = async () => {
 
+    // @ts-expect-error
     const latestBlock = await publicClient.getBlockNumber();
 
+    // @ts-expect-error
     const logs = await publicClient.getContractEvents({
         address: TOKEN_FACTORY_ADDRESS,
         abi: TokenFactoryABI,
@@ -31,13 +33,15 @@ const fetchToken = async () => {
             owner: e.args.creator as string,
             name: e.args.name as string,
             symbol: e.args.symbol as string,
-            url: "https://gratisography.com/wp-content/uploads/2025/03/gratisography-cruising-cat-1036x780.jpg",
-            description: "Coucou",
-            supply: 100000,
-            launchDate: 100000000,
+            url: e.args.image as string,
+            description: e.args.description as string,
+            supply: Number(e.args.totalSupply),
+            launchDate: Number(e.args.timestamp),
         }
     }).filter(Boolean);
 
+    // Sort by launch date
+    tokens.sort((a, b) => b.launchDate - a.launchDate);
     console.log("Token Created: ", tokens);
     return tokens;
 }

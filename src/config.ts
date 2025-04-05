@@ -3,7 +3,7 @@ import { getDefaultConfig } from "connectkit";
 import {getPublicClient} from "@wagmi/core";
 import {horizon} from "../horizon.ts";
 
-const TOKEN_FACTORY_ADDRESS = "0x159a456eeA939Bc80c0aC3861C4C4d800F31bB53";
+const TOKEN_FACTORY_ADDRESS = "0x689A26ff104ad370f923f21fa7f0356B6E787FA8";
 
 const config = createConfig(
     getDefaultConfig({

@@ -1,5 +1,4 @@
 import {
-  createUseReadContract,
   createUseWriteContract,
   createUseSimulateContract,
   createUseWatchContractEvent,
@@ -10,7 +9,6 @@ import {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export const tokenFactoryAbi = [
-  { type: 'constructor', inputs: [], stateMutability: 'nonpayable' },
   {
     type: 'event',
     anonymous: false,
@@ -34,6 +32,25 @@ export const tokenFactoryAbi = [
         type: 'string',
         indexed: false,
       },
+      {
+        name: 'totalSupply',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      { name: 'image', internalType: 'string', type: 'string', indexed: false },
+      {
+        name: 'description',
+        internalType: 'string',
+        type: 'string',
+        indexed: false,
+      },
+      {
+        name: 'timestamp',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
     ],
     name: 'TokenCreated',
   },
@@ -43,54 +60,18 @@ export const tokenFactoryAbi = [
       { name: '_name', internalType: 'string', type: 'string' },
       { name: '_symbol', internalType: 'string', type: 'string' },
       { name: '_totalSupply', internalType: 'uint256', type: 'uint256' },
+      { name: '_image', internalType: 'string', type: 'string' },
+      { name: '_description', internalType: 'string', type: 'string' },
     ],
     name: 'createToken',
     outputs: [{ name: '', internalType: 'address', type: 'address' }],
     stateMutability: 'payable',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'getAllTokens',
-    outputs: [{ name: '', internalType: 'address[]', type: 'address[]' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'owner',
-    outputs: [{ name: '', internalType: 'address', type: 'address' }],
-    stateMutability: 'view',
   },
 ] as const
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // React
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link tokenFactoryAbi}__
- */
-export const useReadTokenFactory = /*#__PURE__*/ createUseReadContract({
-  abi: tokenFactoryAbi,
-})
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link tokenFactoryAbi}__ and `functionName` set to `"getAllTokens"`
- */
-export const useReadTokenFactoryGetAllTokens =
-  /*#__PURE__*/ createUseReadContract({
-    abi: tokenFactoryAbi,
-    functionName: 'getAllTokens',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link tokenFactoryAbi}__ and `functionName` set to `"owner"`
- */
-export const useReadTokenFactoryOwner = /*#__PURE__*/ createUseReadContract({
-  abi: tokenFactoryAbi,
-  functionName: 'owner',
-})
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link tokenFactoryAbi}__
