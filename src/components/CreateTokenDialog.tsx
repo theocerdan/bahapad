@@ -34,7 +34,7 @@ const useCreateToken = () => {
         setOpen(false);
         jsConfetti.addConfetti({
             emojis: ['🐸'],
-            emojiSize: 100,
+            emojiSize: 350,
             confettiNumber: 30,
         })
     }, [isSuccess]);
