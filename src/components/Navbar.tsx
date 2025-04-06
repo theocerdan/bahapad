@@ -31,7 +31,7 @@ const Navbar = () => {
     return (
         <>
             {tokenDialog}
-            <Dialog open={openWalletConnection} onClose={() => setOpenWalletConnection(false)}>
+            <Dialog fullWidth={true} open={openWalletConnection} onClose={() => setOpenWalletConnection(false)}>
                 <DialogTitle>Connect now !</DialogTitle>
                 <DialogContent>
                     <Stack gap={1}>
