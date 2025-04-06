@@ -1,4 +1,15 @@
-import {AppBar, Box, Button, Dialog, Divider, IconButton, Paper, Toolbar, Typography} from "@mui/material";
+import {
+    AppBar,
+    Box,
+    Button,
+    Dialog,
+    DialogContent,
+    DialogTitle,
+    Divider,
+    IconButton, Stack,
+    Toolbar,
+    Typography
+} from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import {useAccount, useConnect, useDisconnect} from "wagmi";
 import {useEffect, useState} from "react";
@@ -21,13 +32,16 @@ const Navbar = () => {
         <>
             {tokenDialog}
             <Dialog open={openWalletConnection} onClose={() => setOpenWalletConnection(false)}>
-                <Box sx={{ display: 'flex', flexDirection: 'column', m: 3, gap: 2 }}>
-                    {connectors.map((connector) => (
-                        <Button key={connector.uid} onClick={() => connect({connector})}>
-                            {connector.name}
-                        </Button>
-                    ))}
-                </Box>
+                <DialogTitle>Connect now !</DialogTitle>
+                <DialogContent>
+                    <Stack gap={1}>
+                        {connectors.map((connector) => (
+                            <Button variant={"contained"} key={connector.uid} onClick={() => connect({connector})}>
+                                {connector.name}
+                            </Button>
+                        ))}
+                    </Stack>
+                </DialogContent>
             </Dialog>
                 <AppBar position={"static"}>
                     <Toolbar>
