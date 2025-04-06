@@ -13,43 +13,14 @@ import {
   import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
   import { Token } from "../repository/TokenRepository";
   import { keyframes } from '@emotion/react';
+  import { useState } from "react";
+  import { SubmitHandler, useForm } from "react-hook-form";
+  import { TextFieldElement } from "react-hook-form-mui";
   
-  // Define a "pump fun" animation that animates scale, rotation, box-shadow, and background color.
-  const pumpFun = keyframes`
-    0% {
-      transform: scale(1) rotate(0deg);
-      background-color: #ff00ff; /* Bright Magenta */
-      box-shadow: 0 0 0 rgba(255, 255, 255, 0);
-    }
-    20% {
-      transform: scale(1.3) rotate(5deg);
-      background-color: #ffff00; /* Bright Yellow */
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-    }
-    40% {
-      transform: scale(0.85) rotate(-5deg);
-      background-color: #00ffff; /* Bright Cyan */
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-    }
-    60% {
-      transform: scale(1.1) rotate(3deg);
-      background-color: #ff0000; /* Bright Red */
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
-    }
-    80% {
-      transform: scale(0.95) rotate(-2deg);
-      background-color: #00ff00; /* Bright Green */
-      box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
-    }
-    100% {
-      transform: scale(1) rotate(0deg);
-      background-color: #f0f2f5; /* <-- Light gray (or your preferred final color) */
-      box-shadow: 0 0 0 rgba(255, 255, 255, 0);
-    }
-  `;
-import {useState} from "react";
-import {SubmitHandler, useForm} from "react-hook-form";
-import {TextFieldElement} from "react-hook-form-mui";
+  type LiquidityDepositInput = {
+    tokenA: number;
+    tokenB: number;
+  };
   
   const formatTimestamp = (timestamp: number) => {
     const date = new Date(timestamp * 1000);
@@ -60,35 +31,59 @@ import {TextFieldElement} from "react-hook-form-mui";
       hour: '2-digit',
       minute: '2-digit',
     });
-}
-
-type LiquidityDepositInput = {
-    tokenA: number;
-    tokenB: number;
-}
-
-const MemeProject = ({ token }: { token: Token }) => {
-    // Données d'exemple pour le projet meme coin
-
-    const {control, handleSubmit} = useForm<LiquidityDepositInput>({
-        defaultValues: {
-            tokenA: 0,
-            tokenB: 0,
-        },
-    })
-
-    const [ratio, setRatio] = useState<number>(0);
-
-    const onSubmit: SubmitHandler<LiquidityDepositInput> = (data) => {
-        setRatio(data.tokenB / data.tokenA);
+  };
+  
+  // Define a "pump fun" animation using only shades of green with a smoother end into gray.
+  const pumpFun = keyframes`
+    0% {
+      transform: scale(1) rotate(0deg);
+      background-color:rgb(122, 169, 124); /* Soft medium green */
+      box-shadow: 0 0 0 rgba(0, 255, 0, 0);
     }
-
+    20% {
+      transform: scale(1.3) rotate(5deg);
+      background-color: #66bb6a; /* Saturated green */
+      box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+    }
+    40% {
+      transform: scale(0.85) rotate(-5deg);
+      background-color: #43a047; /* Dark green */
+      box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+    }
+    60% {
+      transform: scale(1.1) rotate(3deg);
+      background-color:rgb(88, 168, 92); /* Medium green */
+      box-shadow: 0 0 15px rgba(0, 255, 0, 0.4);
+    }
+    80% {
+      transform: scale(0.95) rotate(-2deg);
+      background-color:rgb(116, 194, 120); /* Lighter green */
+      box-shadow: 0 0 5px rgba(0, 255, 0, 0.23);
+    }
+    100% {
+      transform: scale(1) rotate(0deg);
+      background-color: #1E1E1E; /* Back to the original gray */
+      box-shadow: 0 0 0 rgba(0, 255, 0, 0);
+    }
+  `;
+  
+  const MemeProject = ({ token }: { token: Token }) => {
+    const { control, handleSubmit } = useForm<LiquidityDepositInput>({
+      defaultValues: {
+        tokenA: 0,
+        tokenB: 0,
+      },
+    });
+    const [ratio, setRatio] = useState<number>(0);
+  
+    const onSubmit: SubmitHandler<LiquidityDepositInput> = (data) => {
+      setRatio(data.tokenB / data.tokenA);
+    };
+  
     return (
       <Card
         sx={{
           animation: `${pumpFun} 0.8s ease-out`,
-          // Remove any explicit backgroundColor here if you want the keyframes to handle it:
-          // backgroundColor: 'white', // (Remove or change to #f0f2f5 if you prefer)
           width: '100%',
           maxWidth: 900,
           borderRadius: 3,
@@ -140,7 +135,7 @@ const MemeProject = ({ token }: { token: Token }) => {
               gap: 5,
               flex: 1
             }}>
-              <Box sx={{display: 'grid', gridTemplateColumns: '120px 1fr', gap: 1}}>
+              <Box sx={{ display: 'grid', gridTemplateColumns: '120px 1fr', gap: 1 }}>
                 <Typography variant="body2" color="text.secondary" fontWeight="medium">
                   Description:
                 </Typography>
@@ -165,38 +160,41 @@ const MemeProject = ({ token }: { token: Token }) => {
                 <Typography variant="body2" color="text.secondary" fontWeight="medium">
                   Address:
                 </Typography>
-                <Typography variant="body2" sx={{wordBreak: 'break-all'}}>
+                <Typography variant="body2" sx={{ wordBreak: 'break-all' }}>
                   {token.address}
                 </Typography>
   
                 <Typography variant="body2" color="text.secondary" fontWeight="medium">
                   Owner:
                 </Typography>
-                <Typography variant="body2" sx={{wordBreak: 'break-all'}}>
+                <Typography variant="body2" sx={{ wordBreak: 'break-all' }}>
                   {token.owner}
                 </Typography>
               </Box>
-
-                        <form onSubmit={handleSubmit(onSubmit)} noValidate>
-                            {ratio == 0 && <Box sx={{display: 'flex', gap: 2}}>
-                                <TextFieldElement name={'tokenA'} label={"$FTN"} control={control}/>
-                                <TextFieldElement name={'tokenB'} label={'$' + token.symbol.toUpperCase()} control={control}/>
-                                <Button type={"submit"} size={"small"} variant={"contained"}>Initialize liquidity
-                                    pool</Button>
-                            </Box>}
-                        </form>
+  
+              <form onSubmit={handleSubmit(onSubmit)} noValidate>
+                {ratio === 0 && (
+                  <Box sx={{ display: 'flex', gap: 2 }}>
+                    <TextFieldElement name={'tokenA'} label={"$FTN"} control={control} />
+                    <TextFieldElement name={'tokenB'} label={'$' + token.symbol.toUpperCase()} control={control} />
+                    <Button type={"submit"} size={"small"} variant={"contained"}>
+                      Initialize liquidity pool
+                    </Button>
+                  </Box>
+                )}
+              </form>
             </Box>
           </CardContent>
   
           <CardActions sx={{ p: 2, mt: 'auto' }}>
             <Button
-              disabled={ratio == 0}
+              disabled={ratio === 0}
               variant="contained"
               fullWidth
               color="primary"
               startIcon={<ShoppingCartIcon />}
               component={Link}
-              href={"google.com"}
+              href={"bahamut-dex-WIP"}
               target="_blank"
               sx={{
                 fontWeight: 'bold',
@@ -204,7 +202,9 @@ const MemeProject = ({ token }: { token: Token }) => {
                 borderRadius: 2
               }}
             >
-              {ratio == 0 ? "Initialize liquidity pool" : `1 FTN = ${ratio} ${token.symbol.toUpperCase()} (SilkSwap)`}
+              {ratio === 0
+                ? "Initialize liquidity pool"
+                : `1 FTN = ${ratio} ${token.symbol.toUpperCase()} (SilkSwap)`}
             </Button>
           </CardActions>
         </Box>
