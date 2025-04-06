@@ -22,7 +22,7 @@ const fetchToken = async () => {
         address: TOKEN_FACTORY_ADDRESS,
         abi: TokenFactoryABI,
         eventName: "TokenCreated",
-        fromBlock: 0n,
+        fromBlock: latestBlock - 100n,
         toBlock: latestBlock,
     });
 
