@@ -8,11 +8,7 @@ const Leaderboard = () => {
     const { data } = useQuery({ queryKey: ["token"], queryFn: fetchToken, refetchInterval: 2000 });
 
     if (data == undefined) {
-        return (
-            <Box sx={{ display: 'flex', width: '100%', flexDirection: 'column', gap: 3, justifyContent: 'center'}}>
-                <h1>Loading...</h1>
-            </Box>
-        );
+        return <></>;
     }
 
     return (
