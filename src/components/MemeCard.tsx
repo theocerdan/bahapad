@@ -12,6 +12,9 @@ import {
 } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import {Token} from "../repository/TokenRepository.ts";
+import {useState} from "react";
+import {SubmitHandler, useForm} from "react-hook-form";
+import {TextFieldElement} from "react-hook-form-mui";
 
 const formatTimestamp = (timestamp: number) => {
     const date = new Date(timestamp * 1000);
@@ -23,8 +26,27 @@ const formatTimestamp = (timestamp: number) => {
         minute: '2-digit',
     });
 }
+
+type LiquidityDepositInput = {
+    tokenA: number;
+    tokenB: number;
+}
+
 const MemeProject = ({ token }: { token: Token }) => {
     // Données d'exemple pour le projet meme coin
+
+    const {control, handleSubmit} = useForm<LiquidityDepositInput>({
+        defaultValues: {
+            tokenA: 0,
+            tokenB: 0,
+        },
+    })
+
+    const [ratio, setRatio] = useState<number>(0);
+
+    const onSubmit: SubmitHandler<LiquidityDepositInput> = (data) => {
+        setRatio(data.tokenB / data.tokenA);
+    }
 
     return (
         <Card sx={{
@@ -75,11 +97,11 @@ const MemeProject = ({ token }: { token: Token }) => {
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'center',
-                        gap: 2,
+                        gap: 5,
                         flex: 1
                     }}>
 
-                        <Box sx={{ display: 'grid', gridTemplateColumns: '120px 1fr', gap: 1 }}>
+                        <Box sx={{display: 'grid', gridTemplateColumns: '120px 1fr', gap: 1}}>
                             <Typography variant="body2" color="text.secondary" fontWeight="medium">
                                 Description:
                             </Typography>
@@ -104,23 +126,32 @@ const MemeProject = ({ token }: { token: Token }) => {
                             <Typography variant="body2" color="text.secondary" fontWeight="medium">
                                 Address:
                             </Typography>
-                            <Typography variant="body2" sx={{ wordBreak: 'break-all' }}>
+                            <Typography variant="body2" sx={{wordBreak: 'break-all'}}>
                                 {token.address}
                             </Typography>
 
                             <Typography variant="body2" color="text.secondary" fontWeight="medium">
                                 Owner:
                             </Typography>
-                            <Typography variant="body2" sx={{ wordBreak: 'break-all' }}>
+                            <Typography variant="body2" sx={{wordBreak: 'break-all'}}>
                                 {token.owner}
                             </Typography>
                         </Box>
+
+                        <form onSubmit={handleSubmit(onSubmit)} noValidate>
+                            {ratio == 0 && <Box sx={{display: 'flex', gap: 2}}>
+                                <TextFieldElement name={'tokenA'} label={"$FTN"} control={control}/>
+                                <TextFieldElement name={'tokenB'} label={'$' + token.symbol.toUpperCase()} control={control}/>
+                                <Button type={"submit"} size={"small"} variant={"contained"}>Initialize liquidity
+                                    pool</Button>
+                            </Box>}
+                        </form>
                     </Box>
                 </CardContent>
                 {/* Bouton d'achat */}
                 <CardActions sx={{ p: 2, mt: 'auto' }}>
                     <Button
-                        disabled={true}
+                        disabled={ratio == 0}
                         variant="contained"
                         fullWidth
                         color="primary"
@@ -134,7 +165,7 @@ const MemeProject = ({ token }: { token: Token }) => {
                             borderRadius: 2
                         }}
                     >
-                        Buy on SilkSwap (SOON)
+                        {ratio == 0 ? "Initialize liquidity pool" : `1 FTN = ${ratio} ${token.symbol.toUpperCase()} (SilkSwap)`}
                     </Button>
                 </CardActions>
             </Box>
