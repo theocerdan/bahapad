@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#11141c"/>
+      <stop offset="1" stop-color="#1f3b2a"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="96" fill="url(#bg)"/>
+  <!-- grid -->
+  <g stroke="#39ff14" stroke-width="2" opacity="0.15">
+    <line x1="0" y1="128" x2="512" y2="128"/><line x1="0" y1="256" x2="512" y2="256"/><line x1="0" y1="384" x2="512" y2="384"/>
+    <line x1="128" y1="0" x2="128" y2="512"/><line x1="256" y1="0" x2="256" y2="512"/><line x1="384" y1="0" x2="384" y2="512"/>
+  </g>
+  <!-- chart -->
+  <polyline points="40,440 130,380 190,410 280,290 340,320 450,120" fill="none" stroke="#39ff14" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M420 110 L470 100 L462 150 Z" fill="#39ff14" stroke="#39ff14" stroke-width="10" stroke-linejoin="round"/>
+  <!-- gecko on the chart -->
+  <g transform="rotate(-38 300 300)">
+    <path d="M140 300 Q120 330 70 320" fill="none" stroke="#1b1b1b" stroke-width="40" stroke-linecap="round"/>
+    <path d="M140 300 Q120 330 70 320" fill="none" stroke="#00e0b0" stroke-width="22" stroke-linecap="round"/>
+    <!-- legs -->
+    <g stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <path d="M210 270 Q200 240 178 228 M215 330 Q205 360 182 374 M312 270 Q324 240 346 228 M312 330 Q324 360 348 374" stroke="#1b1b1b" stroke-width="30"/>
+      <path d="M210 270 Q200 240 178 228 M215 330 Q205 360 182 374 M312 270 Q324 240 346 228 M312 330 Q324 360 348 374" stroke="#00e0b0" stroke-width="16"/>
+    </g>
+    <g fill="#00e0b0" stroke="#1b1b1b" stroke-width="8">
+      <circle cx="176" cy="226" r="15"/><circle cx="180" cy="376" r="15"/><circle cx="348" cy="226" r="15"/><circle cx="350" cy="376" r="15"/>
+    </g>
+    <ellipse cx="260" cy="300" rx="110" ry="44" fill="#00e0b0" stroke="#1b1b1b" stroke-width="12"/>
+    <g fill="#ffd23f"><circle cx="220" cy="292" r="9"/><circle cx="256" cy="312" r="9"/><circle cx="292" cy="290" r="9"/></g>
+    <!-- head -->
+    <ellipse cx="392" cy="300" rx="62" ry="50" fill="#00e0b0" stroke="#1b1b1b" stroke-width="12"/>
+    <!-- sunglasses -->
+    <path d="M360 270 L450 270 L444 300 Q430 316 412 300 L406 286 L402 300 Q386 316 368 300 Z" fill="#1b1b1b"/>
+    <path d="M372 280 L386 280" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+    <path d="M412 280 L426 280" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+    <path d="M384 326 Q408 340 434 322" fill="none" stroke="#1b1b1b" stroke-width="9" stroke-linecap="round"/>
+  </g>
+</svg>

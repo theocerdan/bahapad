@@ -22,7 +22,8 @@ const fetchToken = async () => {
         address: TOKEN_FACTORY_ADDRESS,
         abi: TokenFactoryABI,
         eventName: "TokenCreated",
-        fromBlock: latestBlock - 100n,
+        // Clamp at genesis, a fresh local chain has less than 100 blocks
+        fromBlock: latestBlock > 100n ? latestBlock - 100n : 0n,
         toBlock: latestBlock,
     });
 

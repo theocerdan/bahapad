@@ -1,18 +1,28 @@
 import {createConfig, http} from "wagmi";
 import { getDefaultConfig } from "connectkit";
 import {getPublicClient} from "@wagmi/core";
-import {bahamut} from "viem/chains";
+import {bahamut, hardhat} from "viem/chains";
 
-const TOKEN_FACTORY_ADDRESS = "0x159a456eeA939Bc80c0aC3861C4C4d800F31bB53";
+// "bahamut" (default) or "local" for a Hardhat node running on 127.0.0.1:8545
+const NETWORK = import.meta.env.VITE_NETWORK === "local" ? "local" : "bahamut";
+
+const chain = NETWORK === "local" ? hardhat : bahamut;
+
+// The local default is the address of the first contract deployed by Hardhat's first account on a fresh node
+const DEFAULT_TOKEN_FACTORY_ADDRESS = {
+    bahamut: "0x159a456eeA939Bc80c0aC3861C4C4d800F31bB53",
+    local: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+} as const;
+
+const TOKEN_FACTORY_ADDRESS: `0x${string}` = import.meta.env.VITE_TOKEN_FACTORY_ADDRESS ?? DEFAULT_TOKEN_FACTORY_ADDRESS[NETWORK];
 
 const config = createConfig(
     getDefaultConfig({
         // Your dApps chains
-        chains: [bahamut],
+        chains: [chain],
         transports: {
             // RPC URL for each chain
-            //[bahamut.id]: http(),
-            [bahamut.id]: http(),
+            [chain.id]: http(),
         },
 
         // Required API Keys
